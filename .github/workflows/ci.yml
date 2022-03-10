@@ -31,7 +31,7 @@ jobs:
 
       - name: Build 🛠️
         run: |
-          npm run build
+          npm run build -- --public-url /black-jack
           touch dist/.nojekyll
 
       - name: Deploy 🚀
