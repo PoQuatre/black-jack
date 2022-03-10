@@ -2,7 +2,7 @@
   "extends": [
     "stylelint-config-standard",
     "stylelint-config-idiomatic-order",
-    "stylelint-config-prettier"
+    "stylelint-prettier/recommended"
   ],
   "rules": {
     "no-missing-end-of-source-newline": true
