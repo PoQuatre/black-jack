@@ -1,0 +1,41 @@
+name: Continuous Integration 🏗️
+
+on:
+  push:
+    branches: ['main']
+
+jobs:
+  build:
+    name: Build 👷
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+
+      - name: Setup Node 📏
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+          cache: 'npm'
+
+      - name: Install Dependencies 📦
+        run: npm ci
+
+      - name: Lint 🚦
+        run: |
+          npm run lint:eslint
+          npm run lint:stylelint
+
+      - name: Format 🪞
+        run: npm run lint:prettier
+
+      - name: Build 🛠️
+        run: |
+          npm run build
+          touch dist/.nojekyll
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: dist
