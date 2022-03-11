@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { StartScreen } from './components';
+import { Start } from './views';
 
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<StartScreen />} />
+      <Route path="/" element={<Start />} />
     </Routes>
   );
 }
