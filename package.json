@@ -21,8 +21,8 @@
   "private": true,
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
-    "dev": "parcel",
-    "start": "parcel",
+    "dev": "parcel ./src/*.html",
+    "start": "parcel ./src/*.html",
     "build": "parcel build ./src/*.html",
     "lint:stylelint": "stylelint --aei --ignore-path .gitignore \"src/**/*.css\"",
     "lint:eslint": "eslint \"src/**/*.{js,jsx}\"",
