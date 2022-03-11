@@ -31,7 +31,8 @@ jobs:
 
       - name: Build 🛠️
         run: |
-          npm run build -- --public-url /black-jack
+          echo BASE_URL=/black-jack > .env
+          npm run build:ci
           touch dist/.nojekyll
 
       - name: Deploy 🚀

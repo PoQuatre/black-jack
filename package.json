@@ -24,6 +24,7 @@
     "dev": "parcel ./src/*.html",
     "start": "parcel ./src/*.html",
     "build": "parcel build ./src/*.html",
+    "build:ci": ". ./.env && parcel build ./src/*.html --public-url ${BASE_URL:-/}",
     "lint:stylelint": "stylelint --aei --ignore-path .gitignore \"src/**/*.css\"",
     "lint:eslint": "eslint \"src/**/*.{js,jsx}\"",
     "lint:prettier": "prettier --check \"**/*.{js,jsx,json,html,md,svg}\"",

@@ -6,7 +6,7 @@ import 'modern-normalize/modern-normalize.css';
 
 ReactDOM.render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.BASE_URL}>
       <App />
     </BrowserRouter>
   </StrictMode>,
