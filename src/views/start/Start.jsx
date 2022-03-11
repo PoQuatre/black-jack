@@ -1,6 +1,6 @@
-import styles from './StartScreen.module.css';
+import styles from './Start.module.css';
 
-export default function StartScreen() {
+export default function Start() {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Black Jack</h1>
