@@ -4,7 +4,7 @@ import { Deck } from './deck';
 
 describe('Deck >>>', () => {
   it('should have 52 cards for 1 deck', () => {
-    const deck = new Deck();
+    const deck = new Deck(1, 'test');
 
     expect(deck.size).to.equal(52);
   });
@@ -16,11 +16,11 @@ describe('Deck >>>', () => {
   });
 
   describe('Draw >', () => {
-    let deck = new Deck(6);
+    let deck = new Deck();
     let top;
 
     beforeEach(() => {
-      deck = new Deck(6);
+      deck = new Deck();
       top = deck.top;
     });
 
@@ -44,6 +44,14 @@ describe('Deck >>>', () => {
   });
 
   describe('Shuffle >', () => {
-    it.skip('should be idempotent given the same seed and deck count');
+    it('should be idempotent given the same seed and deck count', () => {
+      const count = 6;
+      const seed = 'some-random-seed';
+
+      const deck1 = new Deck(count, seed);
+      const deck2 = new Deck(count, seed);
+
+      expect(deck1.cards).to.deep.equal(deck2.cards);
+    });
   });
 });

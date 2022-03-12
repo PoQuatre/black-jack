@@ -1,9 +1,12 @@
+import random from 'random';
 import config from './config';
 
 export class Deck {
   #cards = [];
 
-  constructor(count = 1) {
+  #rng;
+
+  constructor(count = 1, seed = undefined) {
     const cards = config.suits.flatMap((suit) => {
       return config.values.map((value) => {
         return {
@@ -16,6 +19,10 @@ export class Deck {
     for (let i = 0; i < count; i++) {
       this.#cards.push(...cards);
     }
+
+    this.#rng = random.clone(undefined, seed);
+
+    this.shuffle();
   }
 
   get size() {
@@ -26,7 +33,18 @@ export class Deck {
     return this.#cards[0];
   }
 
+  get cards() {
+    return [...this.#cards];
+  }
+
   draw = () => {
     return this.#cards.shift();
+  };
+
+  shuffle = () => {
+    for (let i = this.#cards.length - 1; i > 0; i--) {
+      const j = this.#rng.int(0, i);
+      [this.#cards[i], this.#cards[j]] = [this.#cards[j], this.#cards[i]];
+    }
   };
 }
