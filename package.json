@@ -19,6 +19,7 @@
   ],
   "license": "MIT",
   "private": true,
+  "type": "module",
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
     "dev": "parcel ./src/*.html",
@@ -42,6 +43,9 @@
   "config": {
     "commitizen": {
       "path": "cz-customizable"
+    },
+    "cz-customizable": {
+      "config": "./.cz-config.cjs"
     }
   },
   "imagemin": {
