@@ -1,15 +1,24 @@
 module.exports = {
   types: [
-    { value: ':sparkles: feat', name: '✨ feat:\tAdding a new feature' },
-    { value: ':bug: fix', name: '🐛 fix:\tFixing a bug' },
-    { value: ':memo: docs', name: '📝 docs:\tAdd or update documentation' },
+    {
+      value: ':sparkles: feat',
+      name: '✨ feat:\tAdding a new feature',
+    },
+    {
+      value: ':bug: fix',
+      name: '🐛 fix:\tFixing a bug',
+    },
+    {
+      value: ':memo: docs',
+      name: '📝 docs:\tAdd or update documentation',
+    },
     {
       value: ':lipstick: style',
       name: '💄 style:\tAdd or update styles, ui or ux',
     },
     {
       value: ':recycle: refactor',
-      name: '♻️ refactor:\tCode change that neither fixes a bug nor adds a feature',
+      name: '♻️  refactor:\tCode change that neither fixes a bug nor adds a feature',
     },
     {
       value: ':zap: perf',

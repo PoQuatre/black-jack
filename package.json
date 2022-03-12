@@ -19,10 +19,13 @@
   ],
   "license": "MIT",
   "private": true,
+  "type": "module",
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
     "dev": "parcel ./src/*.html",
     "start": "parcel ./src/*.html",
+    "test": "mocha \"./src/**/*.spec.js\"",
+    "test:watch": "npm test -- --watch",
     "build": "parcel build ./src/*.html",
     "build:ci": ". ./.env && parcel build ./src/*.html --public-url ${BASE_URL:-/}",
     "lint:stylelint": "stylelint --aei --ignore-path .gitignore \"src/**/*.css\"",
@@ -42,6 +45,9 @@
   "config": {
     "commitizen": {
       "path": "cz-customizable"
+    },
+    "cz-customizable": {
+      "config": "./.cz-config.cjs"
     }
   },
   "imagemin": {
@@ -62,6 +68,13 @@
     "*.{js,jsx,json,html,md,svg}": "prettier --write",
     "*.{png,jpeg,jpg,gif,svg,webp}": "lint-staged-imagemin"
   },
+  "mocha": {
+    "bail": true,
+    "parallel": true,
+    "node-option": [
+      "experimental-specifier-resolution=node"
+    ]
+  },
   "devDependencies": {
     "@babel/core": "^7.17.5",
     "@babel/preset-react": "^7.16.7",
@@ -70,6 +83,7 @@
     "@parcel/compressor-brotli": "^2.3.2",
     "@parcel/compressor-gzip": "^2.3.2",
     "autoprefixer": "^10.4.2",
+    "chai": "^4.3.6",
     "commitizen": "^4.2.4",
     "commitlint-config-gitmoji": "^2.2.5",
     "cz-customizable": "^5.5.0",
@@ -84,6 +98,7 @@
     "husky": "^7.0.0",
     "lint-staged": "^12.3.5",
     "lint-staged-imagemin": "^1.1.1",
+    "mocha": "^9.2.2",
     "parcel": "^2.3.2",
     "parcel-namer-rewrite": "^2.0.0-rc.2",
     "parcel-optimizer-imagemin": "^1.0.0",
@@ -101,6 +116,7 @@
   },
   "dependencies": {
     "modern-normalize": "^1.1.0",
+    "random": "^3.0.6",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "^6.2.2"
