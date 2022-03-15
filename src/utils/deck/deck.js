@@ -12,6 +12,8 @@ export class Deck {
         return {
           id: value.id + suit.id,
           name: `${value.name}-${suit.name}`,
+          value: value.value,
+          secondaryValue: value.secondaryValue,
         };
       });
     });
