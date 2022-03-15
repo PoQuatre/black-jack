@@ -19,5 +19,13 @@
     "import/prefer-default-export": "off",
     "no-plusplus": "off",
     "prefer-destructuring": "off"
-  }
+  },
+  "overrides": [
+    {
+      "files": ["./vite.config.js"],
+      "rules": {
+        "import/no-extraneous-dependencies": "off"
+      }
+    }
+  ]
 }
