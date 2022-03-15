@@ -67,7 +67,7 @@ jobs:
         run: npm ci
 
       - name: Build 🛠️
-        run: npm run build --base=/black-jack/
+        run: npm run build -- --base=/black-jack/
 
       - name: Upload Artifact ⬆️
         if: ${{ inputs.deploy }}
