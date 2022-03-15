@@ -1,4 +1,4 @@
-import { Card } from '..';
+import { Card } from '../card';
 import { getScore } from '../../utils';
 import styles from './Dealer.module.css';
 
