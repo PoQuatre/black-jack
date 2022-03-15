@@ -67,10 +67,7 @@ jobs:
         run: npm ci
 
       - name: Build 🛠️
-        run: |
-          echo BASE_URL=/black-jack > .env
-          npm run build:ci
-          touch dist/.nojekyll
+        run: npm run build --base=/dist/
 
       - name: Upload Artifact ⬆️
         if: ${{ inputs.deploy }}
