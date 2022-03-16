@@ -34,7 +34,10 @@ export default function App() {
           />
         }
       />
-      <Route path="/end" element={<End />} />
+      <Route
+        path="/end"
+        element={<End dealerCards={dealerCards} playerCards={playerCards} />}
+      />
     </Routes>
   );
 }
