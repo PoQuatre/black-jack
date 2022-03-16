@@ -1,3 +1,32 @@
 .container {
-  background-color: darkslategray;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.handcenter {
+  display: flex;
+}
+
+.title {
+  position: relative;
+  right: 1033px;
+  bottom: 0;
+  height: 61px;
+  padding: 14px;
+  background-color: #ffe53b;
+  background-image: linear-gradient(147deg, #ffe53b 0%, #ff9e25 74%);
+  color: white;
+  font-size: 12px;
+}
+
+.cards-player {
+  position: relative;
+  right: 640px;
+}
+
+.cards-player:hover {
+  top: -17px;
 }

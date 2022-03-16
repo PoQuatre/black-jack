@@ -32,13 +32,26 @@ export default function Game() {
   };
 
   return (
-    <>
-      <h1 className={styles.title}>Game</h1>
-      <button onClick={draw} type="button">
-        Piocher
-      </button>
-      <Dealer cards={dealerCards} />
+    <div className={styles.backgr}>
+      <Dealer cards={dealerCards} className={styles['car-deal']} />
+      <div className={styles['bar-player']}>
+        <div className={styles['bar-play']}>
+          <button
+            onClick={draw}
+            type="button"
+            className={styles['button-pioch']}
+          >
+            Piocher
+          </button>
+          <button className={styles['button-pioch']} type="button">
+            Abondonner
+          </button>
+          <button className={styles['button-pioch']} type="button">
+            options
+          </button>
+        </div>
+      </div>
       <Hand cards={playerCards} />
-    </>
+    </div>
   );
 }
