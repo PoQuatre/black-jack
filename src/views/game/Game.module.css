@@ -1,3 +1,19 @@
-.title {
-  font-size: 3rem;
+.container {
+  position: absolute;
+  background-image: url('/assets/img/backgrounds/game.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  inset: 0;
+}
+
+.buttons {
+  position: absolute;
+  right: 0;
+  bottom: 1rem;
+  left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 0.5rem;
 }

@@ -1,3 +1,29 @@
-.dealer {
-  background-color: red;
+.container {
+  display: flex;
+  flex-direction: column;
+  align-content: flex-end;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5rem;
+}
+
+.title {
+  position: relative;
+  padding: 0.75rem;
+  margin-bottom: 3rem;
+  background-color: #000;
+  color: beige;
+  text-align: center;
+}
+
+.title::after {
+  position: absolute;
+  bottom: -1.5rem;
+  left: 50%;
+  display: inline-block;
+  padding: 4px;
+  border: solid beige;
+  border-width: 0 4px 4px 0;
+  content: '';
+  transform: rotate(45deg) translateX(-50%);
 }

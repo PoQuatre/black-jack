@@ -1,44 +1,80 @@
+/* eslint-disable react/no-unescaped-entities */
 import { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Dealer, Hand } from '../../components';
-import { Deck, getScore } from '../../utils';
+import { Button, Dealer, Hand } from '../../components';
+import { Deck, getScore, sleep } from '../../utils';
 import styles from './Game.module.css';
 
-export default function Game() {
+export default function Game({
+  dealerCards,
+  playerCards,
+  addDealerCard,
+  addPlayerCard,
+  resetCards,
+}) {
   const navigate = useNavigate();
   const deck = useRef(new Deck(6));
-
-  const [dealerCards, setDealerCards] = useState([]);
-  const [playerCards, setPlayerCards] = useState([]);
+  const [didMount, setDidMount] = useState(false);
 
   useEffect(() => {
-    setDealerCards((cards) => [...cards, deck.current.draw()]);
-    setPlayerCards((cards) => [...cards, deck.current.draw()]);
-    setDealerCards((cards) => [...cards, deck.current.draw()]);
-    setPlayerCards((cards) => [...cards, deck.current.draw()]);
-  }, []);
+    if (!didMount) {
+      resetCards();
 
-  useEffect(() => {
-    if (getScore(dealerCards) >= 21 || getScore(playerCards) >= 21) {
-      navigate('/end');
+      (async () => {
+        await sleep(500);
+        addDealerCard(deck.current.draw());
+        await sleep(500);
+        addPlayerCard(deck.current.draw());
+        await sleep(500);
+        addDealerCard(deck.current.draw());
+        await sleep(500);
+        addPlayerCard(deck.current.draw());
+      })();
+
+      setDidMount(true);
     }
-  }, [navigate, dealerCards, playerCards]);
+  }, [addDealerCard, addPlayerCard, didMount, resetCards]);
 
-  const draw = () => {
-    setPlayerCards((cards) => [...cards, deck.current.draw()]);
+  useEffect(() => {
+    if (!didMount) return;
+    if (getScore(dealerCards) >= 21 || getScore(playerCards) >= 21) {
+      (async () => {
+        await sleep(500);
+        navigate('/end');
+      })();
+    }
+  }, [navigate, dealerCards, playerCards, didMount]);
+
+  const draw = async () => {
+    addPlayerCard(deck.current.draw());
+    await sleep(500);
     if (getScore(dealerCards) < 16) {
-      setDealerCards((cards) => [...cards, deck.current.draw()]);
+      addDealerCard(deck.current.draw());
     }
   };
 
+  const stop = async () => {
+    const cards = [...dealerCards];
+    while (getScore(cards) < 16) {
+      const card = deck.current.draw();
+      cards.push(card);
+      addDealerCard(card);
+      // eslint-disable-next-line no-await-in-loop
+      await sleep(500);
+    }
+
+    await sleep(500);
+    navigate('/end');
+  };
+
   return (
-    <>
-      <h1 className={styles.title}>Game</h1>
-      <button onClick={draw} type="button">
-        Piocher
-      </button>
+    <div className={styles.container}>
       <Dealer cards={dealerCards} />
       <Hand cards={playerCards} />
-    </>
+      <div className={styles.buttons}>
+        <Button onClick={draw}>Piocher</Button>
+        <Button onClick={stop}>S'arrêter</Button>
+      </div>
+    </div>
   );
 }
