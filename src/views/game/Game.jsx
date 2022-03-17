@@ -15,6 +15,7 @@ export default function Game({
   const navigate = useNavigate();
   const deck = useRef(new Deck(6));
   const [didMount, setDidMount] = useState(false);
+  const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
     if (!didMount) {
@@ -29,6 +30,7 @@ export default function Game({
         addDealerCard(deck.current.draw());
         await sleep(500);
         addPlayerCard(deck.current.draw());
+        setEnabled(true);
       })();
 
       setDidMount(true);
@@ -46,6 +48,8 @@ export default function Game({
   }, [navigate, dealerCards, playerCards, didMount]);
 
   const draw = async () => {
+    if (!enabled) return;
+
     addPlayerCard(deck.current.draw());
     await sleep(500);
     if (getScore(dealerCards) < 16) {
@@ -54,6 +58,8 @@ export default function Game({
   };
 
   const stop = async () => {
+    if (!enabled) return;
+
     const cards = [...dealerCards];
     while (getScore(cards) < 16) {
       const card = deck.current.draw();
