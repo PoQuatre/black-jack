@@ -7,7 +7,7 @@ export default function Card({ id }) {
       src={
         id
           ? `${import.meta.env.BASE_URL}assets/img/cards/${id}.png`
-          : `${import.meta.env.BASE_URL}assets/img/backs/card58.png`
+          : `${import.meta.env.BASE_URL}assets/img/backs/red.png`
       }
       alt="card"
     />

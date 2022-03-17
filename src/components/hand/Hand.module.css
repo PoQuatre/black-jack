@@ -1,32 +1,33 @@
 .container {
   position: absolute;
-  right: 0;
-  bottom: 0;
+  bottom: 1rem;
+  left: 50%;
   display: flex;
-  flex-direction: row-reverse;
-}
-
-.handcenter {
-  display: flex;
+  flex-direction: column;
+  align-content: flex-end;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5rem;
+  transform: translateX(-50%);
 }
 
 .title {
   position: relative;
-  right: 1033px;
-  bottom: 0;
-  height: 61px;
-  padding: 14px;
-  background-color: #ffe53b;
-  background-image: linear-gradient(147deg, #ffe53b 0%, #ff9e25 74%);
-  color: white;
-  font-size: 12px;
+  padding: 0.75rem;
+  margin-bottom: 3rem;
+  background-color: #000;
+  color: beige;
+  text-align: center;
 }
 
-.cards-player {
-  position: relative;
-  right: 640px;
-}
-
-.cards-player:hover {
-  top: -17px;
+.title::after {
+  position: absolute;
+  bottom: -1.5rem;
+  left: 50%;
+  display: inline-block;
+  padding: 4px;
+  border: solid beige;
+  border-width: 0 4px 4px 0;
+  content: '';
+  transform: rotate(45deg) translateX(-50%);
 }
