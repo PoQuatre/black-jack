@@ -54,6 +54,15 @@ export default function Game({
   };
 
   const stop = async () => {
+    const cards = [...dealerCards];
+    while (getScore(cards) < 16) {
+      const card = deck.current.draw();
+      cards.push(card);
+      addDealerCard(card);
+      // eslint-disable-next-line no-await-in-loop
+      await sleep(500);
+    }
+
     await sleep(500);
     navigate('/end');
   };
@@ -61,23 +70,6 @@ export default function Game({
   return (
     <div className={styles.container}>
       <Dealer cards={dealerCards} />
-      {/* <div className={styles['bar-player']}>
-        <div className={styles['bar-play']}>
-          <button
-            onClick={draw}
-            type="button"
-            className={styles['button-pioch']}
-          >
-            Piocher
-          </button>
-          <button className={styles['button-pioch']} type="button">
-            Abondonner
-          </button>
-          <button className={styles['button-pioch']} type="button">
-            options
-          </button>
-        </div>
-      </div> */}
       <Hand cards={playerCards} />
       <div className={styles.buttons}>
         <Button onClick={draw}>Piocher</Button>
