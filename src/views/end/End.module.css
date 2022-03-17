@@ -15,28 +15,14 @@
   text-align: center;
 }
 
-.button {
-  display: block;
+.link {
   width: fit-content;
-  padding: 1rem 2rem;
-  border: 3px solid beige;
-  background-color: transparent;
-  border-radius: 1rem;
-  color: beige;
-  font-size: 2rem;
-  font-weight: bold;
-  margin-inline: auto;
-  text-decoration: none;
-}
-
-.button:focus,
-.button:hover {
-  background-color: beige;
-  color: #6d071a;
-  outline: none;
+  align-self: center;
 }
 
 .score {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-evenly;
+  color: beige;
 }
