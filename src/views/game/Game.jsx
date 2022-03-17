@@ -2,7 +2,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Dealer, Hand } from '../../components';
-import { Deck, getScore, sleep } from '../../utils';
+import { Deck, getScore, sleep, throttle } from '../../utils';
 import styles from './Game.module.css';
 
 export default function Game({
@@ -14,27 +14,42 @@ export default function Game({
 }) {
   const navigate = useNavigate();
   const deck = useRef(new Deck(6));
+  const enabled = useRef(false);
   const [didMount, setDidMount] = useState(false);
-  const [enabled, setEnabled] = useState(false);
+  const draw = useRef(
+    throttle(
+      async (cards) => {
+        if (!enabled.current) return;
+
+        addPlayerCard(deck.current.draw());
+        await sleep(500);
+        if (getScore(cards) < 16) {
+          addDealerCard(deck.current.draw());
+        }
+      },
+      1000,
+      { trailing: false },
+    ),
+  ).current;
 
   useEffect(() => {
-    if (!didMount) {
-      resetCards();
+    if (didMount) return;
 
-      (async () => {
-        await sleep(500);
-        addDealerCard(deck.current.draw());
-        await sleep(500);
-        addPlayerCard(deck.current.draw());
-        await sleep(500);
-        addDealerCard(deck.current.draw());
-        await sleep(500);
-        addPlayerCard(deck.current.draw());
-        setEnabled(true);
-      })();
+    resetCards();
 
-      setDidMount(true);
-    }
+    (async () => {
+      await sleep(500);
+      addDealerCard(deck.current.draw());
+      await sleep(500);
+      addPlayerCard(deck.current.draw());
+      await sleep(500);
+      addDealerCard(deck.current.draw());
+      await sleep(500);
+      addPlayerCard(deck.current.draw());
+      enabled.current = true;
+    })();
+
+    setDidMount(true);
   }, [addDealerCard, addPlayerCard, didMount, resetCards]);
 
   useEffect(() => {
@@ -47,18 +62,8 @@ export default function Game({
     }
   }, [navigate, dealerCards, playerCards, didMount]);
 
-  const draw = async () => {
-    if (!enabled) return;
-
-    addPlayerCard(deck.current.draw());
-    await sleep(500);
-    if (getScore(dealerCards) < 16) {
-      addDealerCard(deck.current.draw());
-    }
-  };
-
   const stop = async () => {
-    if (!enabled) return;
+    if (!enabled.current) return;
 
     const cards = [...dealerCards];
     while (getScore(cards) < 16) {
@@ -78,7 +83,7 @@ export default function Game({
       <Dealer cards={dealerCards} />
       <Hand cards={playerCards} />
       <div className={styles.buttons}>
-        <Button onClick={draw}>Piocher</Button>
+        <Button onClick={() => draw(dealerCards)}>Piocher</Button>
         <Button onClick={stop}>S'arrêter</Button>
       </div>
     </div>

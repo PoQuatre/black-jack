@@ -14,7 +14,7 @@ export default function End({ dealerCards, playerCards }) {
   }, [dealerCards, playerCards]);
 
   const getEndMessage = () => {
-    if (playerScore > 21) return dealerScore > 21 ? 'Égalité' : 'Perdu';
+    if (playerScore > 21) return 'Perdu';
     if (dealerScore > 21) return 'Gagné';
     if (playerScore === dealerScore) return 'Égalité';
     return playerScore > dealerScore ? 'Gagné' : 'Perdu';
