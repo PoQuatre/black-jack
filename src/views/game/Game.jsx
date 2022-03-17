@@ -1,7 +1,8 @@
+/* eslint-disable react/no-unescaped-entities */
 import { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Dealer, Hand } from '../../components';
-import { Deck, getScore } from '../../utils';
+import { Button, Dealer, Hand } from '../../components';
+import { Deck, getScore, sleep } from '../../utils';
 import styles from './Game.module.css';
 
 export default function Game({
@@ -19,10 +20,16 @@ export default function Game({
     if (!didMount) {
       resetCards();
 
-      addDealerCard(deck.current.draw());
-      addPlayerCard(deck.current.draw());
-      addDealerCard(deck.current.draw());
-      addPlayerCard(deck.current.draw());
+      (async () => {
+        await sleep(500);
+        addDealerCard(deck.current.draw());
+        await sleep(500);
+        addPlayerCard(deck.current.draw());
+        await sleep(500);
+        addDealerCard(deck.current.draw());
+        await sleep(500);
+        addPlayerCard(deck.current.draw());
+      })();
 
       setDidMount(true);
     }
@@ -31,21 +38,30 @@ export default function Game({
   useEffect(() => {
     if (!didMount) return;
     if (getScore(dealerCards) >= 21 || getScore(playerCards) >= 21) {
-      navigate('/end');
+      (async () => {
+        await sleep(500);
+        navigate('/end');
+      })();
     }
   }, [navigate, dealerCards, playerCards, didMount]);
 
-  const draw = () => {
+  const draw = async () => {
     addPlayerCard(deck.current.draw());
+    await sleep(500);
     if (getScore(dealerCards) < 16) {
       addDealerCard(deck.current.draw());
     }
   };
 
+  const stop = async () => {
+    await sleep(500);
+    navigate('/end');
+  };
+
   return (
-    <div className={styles.backgr}>
-      <Dealer cards={dealerCards} className={styles['car-deal']} />
-      <div className={styles['bar-player']}>
+    <div className={styles.container}>
+      <Dealer cards={dealerCards} />
+      {/* <div className={styles['bar-player']}>
         <div className={styles['bar-play']}>
           <button
             onClick={draw}
@@ -61,8 +77,12 @@ export default function Game({
             options
           </button>
         </div>
-      </div>
+      </div> */}
       <Hand cards={playerCards} />
+      <div className={styles.buttons}>
+        <Button onClick={draw}>Piocher</Button>
+        <Button onClick={stop}>S'arrêter</Button>
+      </div>
     </div>
   );
 }
